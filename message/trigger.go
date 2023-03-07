@@ -35,7 +35,9 @@ func Analysis(event config.MsgEvent, data []byte) {
 func AnalysisMessage(msg string) {
 	for k, v := range common.KeyMap {
 		if strings.HasPrefix(msg, k) {
-			v()
+			// 删除字符串前面的 k 部分
+			msg = msg[len(k):]
+			v(msg)
 		}
 	}
 }

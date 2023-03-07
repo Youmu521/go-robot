@@ -1,12 +1,18 @@
 package common
 
-import "robot/request"
+import (
+	"robot/message/keywords"
+	"robot/request"
+)
 
-var KeyMap = map[string]func(){
-	"点歌": func() {
-		request.M().Send("点歌成功")
+var KeyMap = map[string]func(msg string){
+	"点歌": func(msg string) {
+		keywords.ChooseMusic(msg)
 	},
-	"#": func() {
+	"唱歌": func(msg string) {
+		keywords.SingMusic(msg)
+	},
+	"#": func(msg string) {
 		request.M().At(1312563525).Send("点歌成功")
 	},
 }

@@ -80,3 +80,9 @@ type GroupMsg struct {
 //}
 
 // 消息事件 End
+
+// MessageSource 消息来源
+type MessageSource struct {
+	UserId  int64 `json:"user_id"`  // 发送者 QQ 号
+	GroupId int64 `json:"group_id"` // 群号
+}

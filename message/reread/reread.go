@@ -6,6 +6,7 @@ import (
 	"robot/request"
 )
 
+// Reread 触发复读
 func Reread(groupID int64, message string) {
 
 	// 将当前消息加入到记录中
@@ -29,6 +30,7 @@ func Reread(groupID int64, message string) {
 	}
 }
 
+// 正则替换原始内容种的图片 url
 func regReplace(message string) string {
 	pattern := `\[(CQ:image,file=[^,\]]+),subType=1,url=([^,\]]+)\]`
 	replace := `[$1,subType=1,url=XXX]`
@@ -38,7 +40,7 @@ func regReplace(message string) string {
 	return output
 }
 
-// 判断 是否全等
+// 判断切片中的字符串是否全部相同
 func allMapValuesEqual(m []string) (bool, error) {
 	var value string
 	first := true

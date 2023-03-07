@@ -8,6 +8,7 @@ import (
 	"os"
 	"os/signal"
 	"robot/handle"
+	"robot/redis"
 )
 
 var addr = flag.String("addr", "0.0.0.0:8284", "http service address")
@@ -40,8 +41,11 @@ func main() {
 				log.Println("read:", err)
 				return
 			}
-			// 处理消息
-			//log.Printf("recv: %s", message)
+			// 缓存消息
+			errs := redis.Set("data", message)
+			if errs != nil {
+				return
+			}
 			// 消息分类
 			go handle.Type(message)
 		}
