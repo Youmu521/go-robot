@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"robot/common"
 	"robot/config"
+	"robot/message/reread"
 	"strings"
 )
 
@@ -23,6 +24,9 @@ func Analysis(event config.MsgEvent, data []byte) {
 		if err != nil {
 			return
 		}
+		// 处理群消息，复读
+		reread.Reread(groupMsg.GroupId, groupMsg.RawMessage)
+		// 触发
 		AnalysisMessage(groupMsg.RawMessage)
 	}
 

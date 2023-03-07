@@ -26,6 +26,7 @@ func main() {
 	if err != nil {
 		log.Fatal("dial:", err)
 	}
+
 	defer func(c *websocket.Conn) {
 		err := c.Close()
 		if err != nil {
