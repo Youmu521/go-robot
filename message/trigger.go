@@ -17,7 +17,7 @@ func Analysis(event config.MsgEvent, data []byte) {
 		if err != nil {
 			return
 		}
-		AnalysisMessage(privateMsg.RawMessage)
+		analysisMessage(privateMsg.RawMessage)
 	case common.MessageTypeGroup:
 		groupMsg := config.GroupMsg{}
 		err := json.Unmarshal(data, &groupMsg)
@@ -27,12 +27,13 @@ func Analysis(event config.MsgEvent, data []byte) {
 		// 处理群消息，复读
 		reread.Reread(groupMsg.GroupId, groupMsg.RawMessage)
 		// 触发
-		AnalysisMessage(groupMsg.RawMessage)
+		analysisMessage(groupMsg.RawMessage)
 	}
 
 }
 
-func AnalysisMessage(msg string) {
+// 消息分析触发对应的函数
+func analysisMessage(msg string) {
 	for k, v := range common.KeyMap {
 		if strings.HasPrefix(msg, k) {
 			// 删除字符串前面的 k 部分

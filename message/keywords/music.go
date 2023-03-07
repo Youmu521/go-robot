@@ -28,25 +28,25 @@ func searchMusic(name string) config.List {
 		"size": "1",
 	}).Get(url)
 	if err != nil {
-
+		panic("获取失败")
 	}
 	if !resp.IsSuccessState() {
-
+		panic("状态码不正确")
 	}
 	// 转 byte
 	data, err := resp.ToBytes()
 	if err != nil {
-
+		panic("转换 byte 失败")
 	}
 	// 转结构体
 	musicSearchData := config.MusicSearchData{}
 	err = json.Unmarshal(data, &musicSearchData)
 	if err != nil {
-
+		panic("转 结构体 失败")
 	}
 	// 判断查询是否成功
 	if musicSearchData.Status == 1 {
-
+		panic("歌曲获取失败")
 	}
 	return musicSearchData.Data.List[0]
 }
